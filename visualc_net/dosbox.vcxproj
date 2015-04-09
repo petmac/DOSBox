@@ -583,7 +583,6 @@
     <ClInclude Include="..\src\cpu\core_dynrec\operators.h" />
     <ClInclude Include="..\src\cpu\core_dynrec\risc_armv4le-common.h" />
     <ClInclude Include="..\src\cpu\core_dynrec\risc_armv4le-o3.h" />
-    <ClInclude Include="..\src\cpu\core_dynrec\risc_armv4le-s3.h" />
     <ClInclude Include="..\src\cpu\core_dynrec\risc_armv4le-thumb-iw.h" />
     <ClInclude Include="..\src\cpu\core_dynrec\risc_armv4le-thumb-niw.h" />
     <ClInclude Include="..\src\cpu\core_dynrec\risc_armv4le-thumb.h" />
@@ -692,7 +691,6 @@
     <ClInclude Include="..\src\hardware\parport\printer_charmaps.h" />
     <ClInclude Include="..\src\hardware\parport\printer_if.h" />
     <ClInclude Include="..\src\hardware\parport\printer_redir.h" />
-    <ClInclude Include="..\src\hardware\pci_devices.h" />
     <ClInclude Include="..\src\hardware\reSID\envelope.h" />
     <ClInclude Include="..\src\hardware\reSID\extfilt.h" />
     <ClInclude Include="..\src\hardware\reSID\filter.h" />
@@ -713,7 +711,6 @@
     <ClInclude Include="..\src\hardware\voodoo_types.h" />
     <ClInclude Include="..\src\hardware\voodoo_def.h" />
     <ClInclude Include="..\src\hardware\voodoo_data.h" />
-    <ClInclude Include="..\src\hardware\voodoo_main.h" />
     <ClInclude Include="..\src\hardware\voodoo_interface.h" />
     <ClInclude Include="..\src\hardware\voodoo_emu.h" />
     <ClInclude Include="..\src\hardware\voodoo_opengl.h" />
@@ -751,7 +748,6 @@
     <ClInclude Include="..\src\platform\visualc\ntddscsi.h" />
     <ClInclude Include="..\src\platform\visualc\unistd.h" />
     <ClInclude Include="..\src\save_state.h" />
-    <ClInclude Include="..\src\hardware\font-switch.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\src\dosbox.ico" />

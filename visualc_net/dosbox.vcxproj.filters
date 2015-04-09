@@ -900,9 +900,6 @@
     <ClInclude Include="..\src\dos\cdrom.h">
       <Filter>Source Files\dos\cdrom</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\hardware\font-switch.h">
-      <Filter>Source Files\hardware</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\hardware\serialport\directserial.h">
       <Filter>Source Files\hardware\serialport</Filter>
     </ClInclude>
@@ -1113,9 +1110,6 @@
     <ClInclude Include="..\src\cpu\core_dynrec\risc_armv4le-o3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\cpu\core_dynrec\risc_armv4le-s3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\cpu\core_dynrec\risc_armv4le-thumb-iw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1320,9 +1314,6 @@
     <ClInclude Include="..\src\hardware\parport\printer_redir.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\hardware\pci_devices.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\hardware\reSID\envelope.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1363,9 +1354,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\hardware\voodoo_data.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\hardware\voodoo_main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\hardware\voodoo_interface.h">
