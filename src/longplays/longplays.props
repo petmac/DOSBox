@@ -3,7 +3,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <IncludePath>$(SolutionDir)..\src\longplays\SDL-1.2.15\include;$(SolutionDir)..\src\longplays\SDL_net-1.2.8\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\src\longplays\SDL-1.2.15\include;$(SolutionDir)..\src\longplays\SDL_net-1.2.8\include;$(SolutionDir)..\src\longplays\SDL_sound-r596;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup />
   <ItemGroup />
