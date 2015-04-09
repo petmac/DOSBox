@@ -30,7 +30,7 @@
 #define RENDER_SKIP_CACHE	16
 //Enable this for scalers to support 0 input for empty lines
 //#define RENDER_NULL_INPUT
-#define xBRZ_w_TBB 1
+// #define xBRZ_w_TBB 1 // Disabled by PetMac because TBB is too big to put in the git repo.
 
 typedef struct {
 	struct { 
