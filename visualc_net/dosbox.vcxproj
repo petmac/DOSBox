@@ -756,6 +756,9 @@
   <ItemGroup>
     <Image Include="..\src\dosbox.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\longplays\copy_dlls.bat" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

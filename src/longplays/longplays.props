@@ -6,6 +6,11 @@
     <IncludePath>$(DXSDK_DIR)\include;$(SolutionDir)..\src\longplays\SDL-1.2.15\include;$(SolutionDir)..\src\longplays\SDL_net-1.2.8\include;$(SolutionDir)..\src\longplays\SDL_sound-r596;$(SolutionDir)..\src\longplays\dirent-1.20.1\include;$(SolutionDir)..\src\longplays\physfs-2.0.3;$(SolutionDir)..\src\longplays\physfs-2.0.3\zlib123;$(SolutionDir)..\src\longplays\pdc34dllw;$(SolutionDir)..\src\longplays\lpng1617;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\src\longplays\SDL-1.2.15\lib\x86;$(SolutionDir)..\src\longplays\SDL_net-1.2.8\lib\x86;$(SolutionDir)..\src\longplays\pdc34dllw;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
-  <ItemDefinitionGroup />
+  <ItemDefinitionGroup>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)..\src\longplays\copy_dlls.bat $(OutDir)</Command>
+      <Message>Copying DLLs</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
   <ItemGroup />
 </Project>

@@ -1471,4 +1471,9 @@
   <ItemGroup>
     <Image Include="..\src\dosbox.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\longplays\copy_dlls.bat">
+      <Filter>Source Files\longplays</Filter>
+    </None>
+  </ItemGroup>
 </Project>
