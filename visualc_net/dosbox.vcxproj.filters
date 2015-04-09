@@ -87,6 +87,9 @@
     <Filter Include="Source Files\longplays\PhysicsFS\platform">
       <UniqueIdentifier>{0d06b4c5-b9c6-40f3-a056-811d220985b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\longplays\PhysicsFS\zlib123">
+      <UniqueIdentifier>{19c184dd-3c94-4ccf-8b88-c4ef9625731b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\dosbox.cpp">
@@ -679,6 +682,42 @@
     </ClCompile>
     <ClCompile Include="..\src\longplays\SDL_sound-r596\audio_convert.c">
       <Filter>Source Files\longplays\SDL_sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\zlib123\adler32.c">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\zlib123\compress.c">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\zlib123\crc32.c">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\zlib123\deflate.c">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\zlib123\gzio.c">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\zlib123\infback.c">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\zlib123\inffast.c">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\zlib123\inflate.c">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\zlib123\inftrees.c">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\zlib123\trees.c">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\zlib123\uncompr.c">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\zlib123\zutil.c">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1325,6 +1364,36 @@
     </ClInclude>
     <ClInclude Include="..\src\longplays\physfs-2.0.3\physfs_platforms.h">
       <Filter>Source Files\longplays\PhysicsFS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\physfs-2.0.3\zlib123\crc32.h">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\physfs-2.0.3\zlib123\deflate.h">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\physfs-2.0.3\zlib123\inffast.h">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\physfs-2.0.3\zlib123\inffixed.h">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\physfs-2.0.3\zlib123\inflate.h">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\physfs-2.0.3\zlib123\inftrees.h">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\physfs-2.0.3\zlib123\trees.h">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\physfs-2.0.3\zlib123\zconf.h">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\physfs-2.0.3\zlib123\zlib.h">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\physfs-2.0.3\zlib123\zutil.h">
+      <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
