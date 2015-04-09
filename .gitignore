@@ -1,0 +1,6 @@
+/visualc_net/Release/
+/visualc_net/Debug/
+/visualc_net/x64/
+*.opensdf
+*.sdf
+*.suo
