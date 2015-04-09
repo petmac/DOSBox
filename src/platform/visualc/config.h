@@ -4,7 +4,7 @@
 #define C_DEBUG 0
 
 /* Define to 1 to enable screenshots, requires libpng */
-#define C_SSHOT 0 // Disabled by PetMac so I don't need to depend on libpng.
+#define C_SSHOT 1
 
 /* Define to 1 to use opengl display output support */
 #define C_OPENGL 1
@@ -59,7 +59,7 @@
 #define C_DIRECTSERIAL 1
 
 /* SVN-Daum specific definitions */
-// #define C_LIBPNG 1 // Disabled by PetMac so I don't need to depend on libpng.
+#define C_LIBPNG 1
 #define C_PRINTER 0 // Disabled by PetMac to remove dependency on FreeType.
 #define C_NE2000 0 // Disabled by PetMac to remove dependency on WinPcap.
 #define C_DIRECTLPT 1

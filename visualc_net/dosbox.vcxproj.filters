@@ -90,6 +90,9 @@
     <Filter Include="Source Files\longplays\PhysicsFS\zlib123">
       <UniqueIdentifier>{19c184dd-3c94-4ccf-8b88-c4ef9625731b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\longplays\lpng">
+      <UniqueIdentifier>{01b22c14-2b3d-460d-82c5-df8be889ed26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\dosbox.cpp">
@@ -721,6 +724,51 @@
     </ClCompile>
     <ClCompile Include="..\src\longplays\missing.cpp">
       <Filter>Source Files\longplays</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\lpng1617\png.c">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\lpng1617\pngerror.c">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\lpng1617\pngget.c">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\lpng1617\pngmem.c">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\lpng1617\pngpread.c">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\lpng1617\pngread.c">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\lpng1617\pngrio.c">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\lpng1617\pngrtran.c">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\lpng1617\pngrutil.c">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\lpng1617\pngset.c">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\lpng1617\pngtrans.c">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\lpng1617\pngwio.c">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\lpng1617\pngwrite.c">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\lpng1617\pngwtran.c">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\lpng1617\pngwutil.c">
+      <Filter>Source Files\longplays\lpng</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1397,6 +1445,27 @@
     </ClInclude>
     <ClInclude Include="..\src\longplays\physfs-2.0.3\zlib123\zutil.h">
       <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\lpng1617\png.h">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\lpng1617\pngconf.h">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\lpng1617\pngdebug.h">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\lpng1617\pnginfo.h">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\lpng1617\pnglibconf.h">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\lpng1617\pngpriv.h">
+      <Filter>Source Files\longplays\lpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\lpng1617\pngstruct.h">
+      <Filter>Source Files\longplays\lpng</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
