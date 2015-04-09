@@ -719,6 +719,9 @@
     <ClCompile Include="..\src\longplays\physfs-2.0.3\zlib123\zutil.c">
       <Filter>Source Files\longplays\PhysicsFS\zlib123</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\longplays\missing.cpp">
+      <Filter>Source Files\longplays</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\src\winres.rc">

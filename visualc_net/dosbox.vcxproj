@@ -362,6 +362,7 @@
     <ClCompile Include="..\src\gui\display2.cpp" />
     <ClCompile Include="..\src\gui\xBRZ\xbrz.cpp" />
     <ClCompile Include="..\src\fpu\fpu.cpp" />
+    <ClCompile Include="..\src\longplays\missing.cpp" />
     <ClCompile Include="..\src\longplays\physfs-2.0.3\archivers\dir.c" />
     <ClCompile Include="..\src\longplays\physfs-2.0.3\physfs.c" />
     <ClCompile Include="..\src\longplays\physfs-2.0.3\physfs_byteorder.c" />
