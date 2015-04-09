@@ -367,6 +367,7 @@
     <ClCompile Include="..\src\longplays\physfs-2.0.3\physfs_byteorder.c" />
     <ClCompile Include="..\src\longplays\physfs-2.0.3\physfs_unicode.c" />
     <ClCompile Include="..\src\longplays\physfs-2.0.3\platform\windows.c" />
+    <ClCompile Include="..\src\longplays\SDL_sound-r596\audio_convert.c" />
     <ClCompile Include="..\src\longplays\SDL_sound-r596\SDL_sound.c" />
     <ClCompile Include="..\src\save_state.cpp" />
     <ClCompile Include="..\src\miniunz.c" />

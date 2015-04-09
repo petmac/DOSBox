@@ -677,6 +677,9 @@
     <ClCompile Include="..\src\longplays\physfs-2.0.3\platform\windows.c">
       <Filter>Source Files\longplays\PhysicsFS\platform</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\longplays\SDL_sound-r596\audio_convert.c">
+      <Filter>Source Files\longplays\SDL_sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\src\winres.rc">
