@@ -1,3 +1,7 @@
+# Windows
+Thumbs.db
+
+# Visual Studio
 /visualc_net/Release/
 /visualc_net/Debug/
 /visualc_net/x64/
