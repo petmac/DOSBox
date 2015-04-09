@@ -1434,7 +1434,16 @@ void res_init(void) {
 	sdl.desktop.doublebuf=section->Get_bool("fulldouble");
 
 	int width=1024, height=768;
+#if 1 // PetMac
+	DEVMODE mode = {};
+	mode.dmSize = sizeof(mode);
+	if (EnumDisplaySettings(NULL, ENUM_REGISTRY_SETTINGS, &mode)) {
+		width = mode.dmPelsWidth;
+		height = mode.dmPelsHeight;
+	}
+#else // PetMac
 	SDL_GetDesktopMode(&width, &height);
+#endif // PetMac
 	if (!sdl.desktop.full.width) {
 		sdl.desktop.full.width=width;
 	}
@@ -2291,7 +2300,16 @@ static void GUI_StartUp(Section * sec) {
 #endif
 
 	int width=1024; int height=768;
+#if 1 // PetMac
+	DEVMODE mode = {};
+	mode.dmSize = sizeof(mode);
+	if (EnumDisplaySettings(NULL, ENUM_REGISTRY_SETTINGS, &mode)) {
+		width = mode.dmPelsWidth;
+		height = mode.dmPelsHeight;
+	}
+#else // PetMac
 	SDL_GetDesktopMode(&width, &height);
+#endif // PetMac
 	if (!sdl.desktop.full.width) {
 		sdl.desktop.full.width=width;
 	}
