@@ -362,6 +362,11 @@
     <ClCompile Include="..\src\gui\display2.cpp" />
     <ClCompile Include="..\src\gui\xBRZ\xbrz.cpp" />
     <ClCompile Include="..\src\fpu\fpu.cpp" />
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\archivers\dir.c" />
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\physfs.c" />
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\physfs_byteorder.c" />
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\physfs_unicode.c" />
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\platform\windows.c" />
     <ClCompile Include="..\src\longplays\SDL_sound-r596\SDL_sound.c" />
     <ClCompile Include="..\src\save_state.cpp" />
     <ClCompile Include="..\src\miniunz.c" />
@@ -689,6 +694,10 @@
     <ClInclude Include="..\src\libs\gui_tk\gui_tk.h" />
     <ClInclude Include="..\src\libs\porttalk\porttalk.h" />
     <ClInclude Include="..\src\libs\porttalk\PortTalk_IOCTL.h" />
+    <ClInclude Include="..\src\longplays\physfs-2.0.3\physfs.h" />
+    <ClInclude Include="..\src\longplays\physfs-2.0.3\physfs_casefolding.h" />
+    <ClInclude Include="..\src\longplays\physfs-2.0.3\physfs_internal.h" />
+    <ClInclude Include="..\src\longplays\physfs-2.0.3\physfs_platforms.h" />
     <ClInclude Include="..\src\longplays\SDL_sound-r596\SDL_sound.h" />
     <ClInclude Include="..\src\longplays\SDL_sound-r596\SDL_sound_internal.h" />
     <ClInclude Include="..\src\platform\visualc\config.h" />

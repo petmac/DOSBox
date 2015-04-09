@@ -78,6 +78,15 @@
     <Filter Include="Source Files\longplays\SDL_sound">
       <UniqueIdentifier>{7dddc4a6-6a0d-4943-8adf-9095a3b59832}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\longplays\PhysicsFS">
+      <UniqueIdentifier>{27a1d22f-8062-4d1e-a016-1266cccc1c96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\longplays\PhysicsFS\archivers">
+      <UniqueIdentifier>{024f05af-4c2a-4dfb-89b6-f8d6a8688e2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\longplays\PhysicsFS\platform">
+      <UniqueIdentifier>{0d06b4c5-b9c6-40f3-a056-811d220985b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\dosbox.cpp">
@@ -652,6 +661,21 @@
     </ClCompile>
     <ClCompile Include="..\src\longplays\SDL_sound-r596\SDL_sound.c">
       <Filter>Source Files\longplays\SDL_sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\physfs.c">
+      <Filter>Source Files\longplays\PhysicsFS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\physfs_byteorder.c">
+      <Filter>Source Files\longplays\PhysicsFS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\physfs_unicode.c">
+      <Filter>Source Files\longplays\PhysicsFS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\archivers\dir.c">
+      <Filter>Source Files\longplays\PhysicsFS\archivers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\physfs-2.0.3\platform\windows.c">
+      <Filter>Source Files\longplays\PhysicsFS\platform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1286,6 +1310,18 @@
     </ClInclude>
     <ClInclude Include="..\src\longplays\SDL_sound-r596\SDL_sound_internal.h">
       <Filter>Source Files\longplays\SDL_sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\physfs-2.0.3\physfs.h">
+      <Filter>Source Files\longplays\PhysicsFS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\physfs-2.0.3\physfs_casefolding.h">
+      <Filter>Source Files\longplays\PhysicsFS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\physfs-2.0.3\physfs_internal.h">
+      <Filter>Source Files\longplays\PhysicsFS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\physfs-2.0.3\physfs_platforms.h">
+      <Filter>Source Files\longplays\PhysicsFS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
