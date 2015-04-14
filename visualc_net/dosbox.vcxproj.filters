@@ -93,6 +93,9 @@
     <Filter Include="Source Files\longplays\lpng">
       <UniqueIdentifier>{01b22c14-2b3d-460d-82c5-df8be889ed26}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\longplays">
+      <UniqueIdentifier>{327acbb4-b329-489d-bbbc-ba8b203b2d03}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\dosbox.cpp">
@@ -769,6 +772,9 @@
     </ClCompile>
     <ClCompile Include="..\src\longplays\lpng1617\pngwutil.c">
       <Filter>Source Files\longplays\lpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\longplays\longplay.cpp">
+      <Filter>Source Files\longplays</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1454,6 +1460,9 @@
     </ClInclude>
     <ClInclude Include="..\src\longplays\lpng1617\pngstruct.h">
       <Filter>Source Files\longplays\lpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\longplays\longplay.h">
+      <Filter>Header Files\longplays</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -74,6 +74,7 @@
 #include "parport.h"
 #include "save_state.h"
 #include "clockdomain.h"
+#include "longplays/longplay.h"
 
 #ifdef WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -2264,6 +2265,9 @@ void DOSBOX_Init(void) {
 				"auto-insert notification triggers properly.\n"
 				"Set to 0 to use controller or CD-ROM drive-specific default.");
 	}
+
+	// Longplays added by PetMac.
+	control->AddSection_line("longplay", &LONGPLAY_Init);
 
 	//TODO ?
 	control->AddSection_line("autoexec",&AUTOEXEC_Init);

@@ -362,6 +362,7 @@
     <ClCompile Include="..\src\gui\display2.cpp" />
     <ClCompile Include="..\src\gui\xBRZ\xbrz.cpp" />
     <ClCompile Include="..\src\fpu\fpu.cpp" />
+    <ClCompile Include="..\src\longplays\longplay.cpp" />
     <ClCompile Include="..\src\longplays\lpng1617\png.c" />
     <ClCompile Include="..\src\longplays\lpng1617\pngerror.c" />
     <ClCompile Include="..\src\longplays\lpng1617\pngget.c" />
@@ -720,6 +721,7 @@
     <ClInclude Include="..\src\libs\gui_tk\gui_tk.h" />
     <ClInclude Include="..\src\libs\porttalk\porttalk.h" />
     <ClInclude Include="..\src\libs\porttalk\PortTalk_IOCTL.h" />
+    <ClInclude Include="..\src\longplays\longplay.h" />
     <ClInclude Include="..\src\longplays\lpng1617\png.h" />
     <ClInclude Include="..\src\longplays\lpng1617\pngconf.h" />
     <ClInclude Include="..\src\longplays\lpng1617\pngdebug.h" />
