@@ -35,6 +35,8 @@
 #include "../libs/zmbv/zmbv.cpp"
 #endif
 
+#include "../longplays/longplay.h"
+
 std::string capturedir;
 extern const char* RunningProgram;
 Bitu CaptureState;
@@ -123,6 +125,9 @@ FILE * OpenCaptureFile(const char * type,const char * ext) {
 	FILE * handle=fopen(file_name,"wb");
 	if (handle) {
 		LOG_MSG("Capturing %s to %s",type,file_name);
+
+		// Added by PetMac.
+		LONGPLAY_SetCaptureFile(file_name);
 	} else {
 		LOG_MSG("Failed to open %s for capturing %s",file_name,type);
 	}
@@ -505,6 +510,9 @@ skip_shot:
 			capture.video.written = 0;
 			capture.video.audioused = 0;
 			capture.video.audiowritten = 0;
+
+			// Added by PetMac.
+			LONGPLAY_SetFrameCount(0);
 		}
 		int codecFlags;
 		if (capture.video.frames % 300 == 0)
@@ -556,6 +564,10 @@ skip_shot:
 		CAPTURE_AddAviChunk( "00dc", written, capture.video.buf, codecFlags & 1 ? 0x10 : 0x0);
 		capture.video.frames++;
 //		LOG_MSG("Frame %d video %d audio %d",capture.video.frames, written, capture.video.audioused *4 );
+
+		// Added by PetMac.
+		LONGPLAY_SetFrameCount(capture.video.frames);
+
 		if ( capture.video.audioused ) {
 			CAPTURE_AddAviChunk( "01wb", capture.video.audioused * 4, capture.video.audiobuf, 0);
 			capture.video.audiowritten = capture.video.audioused*4;
