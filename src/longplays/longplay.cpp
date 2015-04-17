@@ -43,6 +43,16 @@ static void writeCapture(std::ostream &stream, const CaptureInfo &capture)
 	writePOD(stream, capture.frame_count);
 }
 
+static void scriptCapture(FILE *avs, const CaptureInfo &capture)
+{
+	// TODO Handle frame count == 0?
+	fprintf(
+		avs,
+		"AVISource(\"%s\").trim(0, %u)",
+		capture.file_name.c_str(),
+		static_cast<unsigned int>(capture.frame_count - 1));
+}
+
 void LONGPLAY_Init(Section *section)
 {
 	// Register with the save state.
@@ -89,7 +99,43 @@ void LongPlaySaveStateComponent::getBytes(std::ostream& stream)
 		writeCapture(stream, current_capture);
 	}
 
-	// TODO Write out log/script.
+	// Open the script file.
+	FILE *avs = fopen("capture.avs", "w");
+	if (avs == NULL)
+	{
+		return;
+	}
+
+	if (previous_captures.empty())
+	{
+		if (CaptureState & CAPTURE_VIDEO)
+		{
+			scriptCapture(avs, current_capture);
+		}
+	}
+	else
+	{
+		scriptCapture(avs, previous_captures.front());
+
+		for (CaptureList::size_type i = 1; i < previous_captures.size(); ++i)
+		{
+			fputs(" ++ ", avs);
+
+			const CaptureInfo &capture = previous_captures[i];
+			scriptCapture(avs, capture);
+		}
+
+		if (CaptureState & CAPTURE_VIDEO)
+		{
+			fputs(" ++ ", avs);
+
+			scriptCapture(avs, current_capture);
+		}
+	}
+
+	// Close the script.
+	fclose(avs);
+	avs = NULL;
 }
 
 void LongPlaySaveStateComponent::setBytes(std::istream& stream)
