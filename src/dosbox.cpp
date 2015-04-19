@@ -2267,7 +2267,10 @@ void DOSBOX_Init(void) {
 	}
 
 	// Longplays added by PetMac.
-	control->AddSection_line("longplay", &LONGPLAY_Init);
+	const char *longplay_scaling[] = { LONGPLAY_SCALER_NONE, LONGPLAY_SCALER_INTEGRAL };
+	secprop = control->AddSection_prop("longplay", &LONGPLAY_Init);
+	Pstring = secprop->Add_string(LONGPLAY_SCALER, Property::Changeable::Always, LONGPLAY_SCALER_NONE);
+	Pstring->Set_values(longplay_scaling);
 
 	//TODO ?
 	control->AddSection_line("autoexec",&AUTOEXEC_Init);

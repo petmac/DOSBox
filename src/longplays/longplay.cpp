@@ -8,6 +8,10 @@
 
 void CAPTURE_VideoEvent(bool pressed);
 
+const char *const LONGPLAY_SCALER = "scaler";
+const char *const LONGPLAY_SCALER_NONE = "none";
+const char *const LONGPLAY_SCALER_INTEGRAL = "integral";
+
 static const bool RESIZE = false;
 static const Bit32u CURRENT_VERSION = 1;
 
@@ -28,6 +32,7 @@ public:
 	void getBytes(std::ostream& stream) override;
 	void setBytes(std::istream& stream) override;
 
+	const Section *section = NULL;
 	CaptureList previous_captures;
 	CaptureInfo current_capture;
 
@@ -82,7 +87,7 @@ static void scriptResize(FILE *avs, Bitu to_width, Bitu to_height)
 		static_cast<unsigned int>(to_height));
 }
 
-static void scriptCapture(FILE *avs, const CaptureInfo &capture, Bitu largest_width, Bitu largest_height)
+static void scriptCapture(FILE *avs, const CaptureInfo &capture, Bitu largest_width, Bitu largest_height, const Section *section)
 {
 	// TODO Handle frame count == 0?
 	fprintf(
@@ -111,6 +116,7 @@ void LONGPLAY_Init(Section *section)
 	// Register with the save state.
 	SaveState &save_state = SaveState::instance();
 	save_state.registerComponent("Longplay", save_state_component);
+	save_state_component.section = section;
 
 	// Not capturing?
 	if ((CaptureState & CAPTURE_VIDEO) == 0)
@@ -250,26 +256,26 @@ void LongPlaySaveStateComponent::writeScript() const
 	{
 		if (CaptureState & CAPTURE_VIDEO)
 		{
-			scriptCapture(avs, current_capture, largest_width, largest_height);
+			scriptCapture(avs, current_capture, largest_width, largest_height, section);
 		}
 	}
 	else
 	{
-		scriptCapture(avs, previous_captures.front(), largest_width, largest_height);
+		scriptCapture(avs, previous_captures.front(), largest_width, largest_height, section);
 
 		for (CaptureList::size_type i = 1; i < previous_captures.size(); ++i)
 		{
 			fputs(" ++ ", avs);
 
 			const CaptureInfo &capture = previous_captures[i];
-			scriptCapture(avs, capture, largest_width, largest_height);
+			scriptCapture(avs, capture, largest_width, largest_height, section);
 		}
 
 		if (CaptureState & CAPTURE_VIDEO)
 		{
 			fputs(" ++ ", avs);
 
-			scriptCapture(avs, current_capture, largest_width, largest_height);
+			scriptCapture(avs, current_capture, largest_width, largest_height, section);
 		}
 	}
 
