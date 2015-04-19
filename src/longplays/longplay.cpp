@@ -8,11 +8,14 @@
 
 void CAPTURE_VideoEvent(bool pressed);
 
+static const bool ADD_BORDERS = false;
 static const Bit32u CURRENT_VERSION = 1;
 
 struct CaptureInfo
 {
 	std::string file_name;
+	Bit32u width = 0;
+	Bit32u height = 0;
 	Bit32u frame_count = 0;
 };
 
@@ -27,6 +30,11 @@ public:
 
 	CaptureList previous_captures;
 	CaptureInfo current_capture;
+
+private:
+
+	void writeSave(std::ostream &stream) const;
+	void writeScript() const;
 };
 
 static LongPlaySaveStateComponent save_state_component;
@@ -34,16 +42,20 @@ static LongPlaySaveStateComponent save_state_component;
 static void readCapture(std::istream &stream, CaptureInfo &capture)
 {
 	readString(stream, capture.file_name);
+	readPOD(stream, capture.width);
+	readPOD(stream, capture.height);
 	readPOD(stream, capture.frame_count);
 }
 
 static void writeCapture(std::ostream &stream, const CaptureInfo &capture)
 {
 	writeString(stream, capture.file_name);
+	writePOD(stream, capture.width);
+	writePOD(stream, capture.height);
 	writePOD(stream, capture.frame_count);
 }
 
-static void scriptCapture(FILE *avs, const CaptureInfo &capture)
+static void scriptCapture(FILE *avs, const CaptureInfo &capture, Bitu largest_width, Bitu largest_height)
 {
 	// TODO Handle frame count == 0?
 	fprintf(
@@ -51,6 +63,37 @@ static void scriptCapture(FILE *avs, const CaptureInfo &capture)
 		"AviSource(\"%s\").AssumeFPS(70).Trim(0, %u)",
 		capture.file_name.c_str(),
 		static_cast<unsigned int>(capture.frame_count - 1));
+
+	// Need to resize or add borders?
+	if ((capture.width != largest_width) ||
+		(capture.height != largest_height))
+	{
+		if (ADD_BORDERS)
+		{
+			// Compute the borders to add.
+			Bitu left_border = (largest_width - capture.width) / 2;
+			Bitu top_border = (largest_height - capture.height) / 2;
+			Bitu right_border = largest_width - capture.width - left_border;
+			Bitu bottom_border = largest_height - capture.height - top_border;
+
+			// Add the borders.
+			fprintf(
+				avs,
+				".AddBorders(%u, %u, %u, %u)",
+				static_cast<unsigned int>(left_border),
+				static_cast<unsigned int>(top_border),
+				static_cast<unsigned int>(right_border),
+				static_cast<unsigned int>(bottom_border));
+		}
+		else
+		{
+			fprintf(
+				avs,
+				".BicubicResize(%u, %u)",
+				static_cast<unsigned int>(largest_width),
+				static_cast<unsigned int>(largest_height));
+		}
+	}
 }
 
 void LONGPLAY_Init(Section *section)
@@ -58,11 +101,34 @@ void LONGPLAY_Init(Section *section)
 	// Register with the save state.
 	SaveState &save_state = SaveState::instance();
 	save_state.registerComponent("Longplay", save_state_component);
+
+	// Not capturing?
+	if ((CaptureState & CAPTURE_VIDEO) == 0)
+	{
+		// Start capturing.
+		CAPTURE_VideoEvent(true);
+		assert(CaptureState & CAPTURE_VIDEO);
+	}
 }
 
 void LONGPLAY_SetCaptureFile(const char *file_name)
 {
+	// Have an old capture?
+	if (save_state_component.current_capture.frame_count > 0)
+	{
+		// Remember it.
+		save_state_component.previous_captures.push_back(save_state_component.current_capture);
+	}
+
+	// Start the new capture.
+	save_state_component.current_capture = CaptureInfo();
 	save_state_component.current_capture.file_name = file_name;
+}
+
+void LONGPLAY_BeginCapture(Bitu width, Bitu height)
+{
+	save_state_component.current_capture.width = width;
+	save_state_component.current_capture.height = height;
 	save_state_component.current_capture.frame_count = 0;
 }
 
@@ -73,69 +139,8 @@ void LONGPLAY_SetFrameCount(Bitu frame_count)
 
 void LongPlaySaveStateComponent::getBytes(std::ostream& stream)
 {
-	// Save version and capture state.
-	writePOD(stream, CURRENT_VERSION);
-	writePOD(stream, static_cast<Bit32u>(CaptureState));
-
-	// Is there a capture running?
-	if (CaptureState & CAPTURE_VIDEO)
-	{
-		writePOD(stream, static_cast<Bit32u>(previous_captures.size() + 1));
-	}
-	else
-	{
-		writePOD(stream, static_cast<Bit32u>(previous_captures.size()));
-	}
-
-	// Write previous captures.
-	for (CaptureList::const_iterator it = previous_captures.begin(); it != previous_captures.end(); ++it)
-	{
-		writeCapture(stream, *it);
-	}
-
-	// Is there a capture running?
-	if (CaptureState & CAPTURE_VIDEO)
-	{
-		writeCapture(stream, current_capture);
-	}
-
-	// Open the script file.
-	FILE *avs = fopen("capture.avs", "w");
-	if (avs == NULL)
-	{
-		return;
-	}
-
-	if (previous_captures.empty())
-	{
-		if (CaptureState & CAPTURE_VIDEO)
-		{
-			scriptCapture(avs, current_capture);
-		}
-	}
-	else
-	{
-		scriptCapture(avs, previous_captures.front());
-
-		for (CaptureList::size_type i = 1; i < previous_captures.size(); ++i)
-		{
-			fputs(" ++ ", avs);
-
-			const CaptureInfo &capture = previous_captures[i];
-			scriptCapture(avs, capture);
-		}
-
-		if (CaptureState & CAPTURE_VIDEO)
-		{
-			fputs(" ++ ", avs);
-
-			scriptCapture(avs, current_capture);
-		}
-	}
-
-	// Close the script.
-	fclose(avs);
-	avs = NULL;
+	writeSave(stream);
+	writeScript();
 }
 
 void LongPlaySaveStateComponent::setBytes(std::istream& stream)
@@ -165,6 +170,10 @@ void LongPlaySaveStateComponent::setBytes(std::istream& stream)
 		assert((CaptureState & CAPTURE_VIDEO) == 0);
 	}
 
+	// Clear current capture.
+	current_capture.file_name.clear();
+	current_capture.frame_count = 0;
+
 	// Was there a capture running when state was saved?
 	if (stream_capture_state & CAPTURE_VIDEO)
 	{
@@ -172,4 +181,89 @@ void LongPlaySaveStateComponent::setBytes(std::istream& stream)
 		CAPTURE_VideoEvent(true);
 		assert(CaptureState & CAPTURE_VIDEO);
 	}
+}
+
+void LongPlaySaveStateComponent::writeSave(std::ostream &stream) const
+{
+	// Save version and capture state.
+	writePOD(stream, CURRENT_VERSION);
+	writePOD(stream, static_cast<Bit32u>(CaptureState));
+
+	// Is there a capture running?
+	if (CaptureState & CAPTURE_VIDEO)
+	{
+		writePOD(stream, static_cast<Bit32u>(previous_captures.size() + 1));
+	}
+	else
+	{
+		writePOD(stream, static_cast<Bit32u>(previous_captures.size()));
+	}
+
+	// Write previous captures.
+	for (CaptureList::const_iterator it = previous_captures.begin(); it != previous_captures.end(); ++it)
+	{
+		writeCapture(stream, *it);
+	}
+
+	// Is there a capture running?
+	if (CaptureState & CAPTURE_VIDEO)
+	{
+		writeCapture(stream, current_capture);
+	}
+}
+
+void LongPlaySaveStateComponent::writeScript() const
+{
+	// Compute the largest width and height.
+	Bitu largest_width = current_capture.width;
+	Bitu largest_height = current_capture.height;
+	for (CaptureList::const_iterator it = previous_captures.begin(); it != previous_captures.end(); ++it)
+	{
+		if (it->width > largest_width)
+		{
+			largest_width = it->width;
+		}
+		if (it->height > largest_height)
+		{
+			largest_height = it->height;
+		}
+	}
+
+	// Open the script file.
+	FILE *avs = fopen("capture.avs", "w");
+	if (avs == NULL)
+	{
+		return;
+	}
+
+	if (previous_captures.empty())
+	{
+		if (CaptureState & CAPTURE_VIDEO)
+		{
+			scriptCapture(avs, current_capture, largest_width, largest_height);
+		}
+	}
+	else
+	{
+		scriptCapture(avs, previous_captures.front(), largest_width, largest_height);
+
+		for (CaptureList::size_type i = 1; i < previous_captures.size(); ++i)
+		{
+			fputs(" ++ ", avs);
+
+			const CaptureInfo &capture = previous_captures[i];
+			scriptCapture(avs, capture, largest_width, largest_height);
+		}
+
+		if (CaptureState & CAPTURE_VIDEO)
+		{
+			fputs(" ++ ", avs);
+
+			scriptCapture(avs, current_capture, largest_width, largest_height);
+		}
+	}
+
+	// Close the script.
+	fclose(avs);
+	avs = NULL;
 }

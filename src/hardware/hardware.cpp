@@ -512,7 +512,7 @@ skip_shot:
 			capture.video.audiowritten = 0;
 
 			// Added by PetMac.
-			LONGPLAY_SetFrameCount(0);
+			LONGPLAY_BeginCapture(capture.video.width, capture.video.height);
 		}
 		int codecFlags;
 		if (capture.video.frames % 300 == 0)
