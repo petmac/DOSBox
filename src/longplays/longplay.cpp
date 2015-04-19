@@ -48,7 +48,7 @@ static void scriptCapture(FILE *avs, const CaptureInfo &capture)
 	// TODO Handle frame count == 0?
 	fprintf(
 		avs,
-		"AVISource(\"%s\").trim(0, %u)",
+		"AviSource(\"%s\").AssumeFPS(70).Trim(0, %u)",
 		capture.file_name.c_str(),
 		static_cast<unsigned int>(capture.frame_count - 1));
 }
