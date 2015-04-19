@@ -55,6 +55,33 @@ static void writeCapture(std::ostream &stream, const CaptureInfo &capture)
 	writePOD(stream, capture.frame_count);
 }
 
+static void scriptAddBorders(FILE *avs, Bitu from_width, Bitu from_height, Bitu to_width, Bitu to_height)
+{
+	// Compute the borders to add.
+	Bitu left_border = (to_width - from_width) / 2;
+	Bitu top_border = (to_height - from_height) / 2;
+	Bitu right_border = to_width - from_width - left_border;
+	Bitu bottom_border = to_height - from_height - top_border;
+
+	// Add the borders.
+	fprintf(
+		avs,
+		".AddBorders(%u, %u, %u, %u)",
+		static_cast<unsigned int>(left_border),
+		static_cast<unsigned int>(top_border),
+		static_cast<unsigned int>(right_border),
+		static_cast<unsigned int>(bottom_border));
+}
+
+static void scriptResize(FILE *avs, Bitu to_width, Bitu to_height)
+{
+	fprintf(
+		avs,
+		".BicubicResize(%u, %u)",
+		static_cast<unsigned int>(to_width),
+		static_cast<unsigned int>(to_height));
+}
+
 static void scriptCapture(FILE *avs, const CaptureInfo &capture, Bitu largest_width, Bitu largest_height)
 {
 	// TODO Handle frame count == 0?
@@ -70,28 +97,11 @@ static void scriptCapture(FILE *avs, const CaptureInfo &capture, Bitu largest_wi
 	{
 		if (ADD_BORDERS)
 		{
-			// Compute the borders to add.
-			Bitu left_border = (largest_width - capture.width) / 2;
-			Bitu top_border = (largest_height - capture.height) / 2;
-			Bitu right_border = largest_width - capture.width - left_border;
-			Bitu bottom_border = largest_height - capture.height - top_border;
-
-			// Add the borders.
-			fprintf(
-				avs,
-				".AddBorders(%u, %u, %u, %u)",
-				static_cast<unsigned int>(left_border),
-				static_cast<unsigned int>(top_border),
-				static_cast<unsigned int>(right_border),
-				static_cast<unsigned int>(bottom_border));
+			scriptAddBorders(avs, capture.width, capture.height, largest_width, largest_height);
 		}
 		else
 		{
-			fprintf(
-				avs,
-				".BicubicResize(%u, %u)",
-				static_cast<unsigned int>(largest_width),
-				static_cast<unsigned int>(largest_height));
+			scriptResize(avs, largest_width, largest_height);
 		}
 	}
 }
