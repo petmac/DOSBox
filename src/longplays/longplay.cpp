@@ -4,6 +4,7 @@
 #include "../save_state.h"
 
 #include <assert.h>
+#include <time.h>
 #include <vector>
 
 void CAPTURE_VideoEvent(bool pressed);
@@ -55,55 +56,15 @@ static void writeCapture(std::ostream &stream, const CaptureInfo &capture)
 	writePOD(stream, capture.frame_count);
 }
 
-static void scriptAddBorders(FILE *avs, Bitu from_width, Bitu from_height, Bitu to_width, Bitu to_height)
-{
-	// Compute the borders to add.
-	Bitu left_border = (to_width - from_width) / 2;
-	Bitu top_border = (to_height - from_height) / 2;
-	Bitu right_border = to_width - from_width - left_border;
-	Bitu bottom_border = to_height - from_height - top_border;
-
-	// Add the borders.
-	fprintf(
-		avs,
-		".AddBorders(%u, %u, %u, %u)",
-		static_cast<unsigned int>(left_border),
-		static_cast<unsigned int>(top_border),
-		static_cast<unsigned int>(right_border),
-		static_cast<unsigned int>(bottom_border));
-}
-
-static void scriptResize(FILE *avs, Bitu to_width, Bitu to_height)
+static void scriptCapture(FILE *script, const CaptureInfo &capture)
 {
 	fprintf(
-		avs,
-		".BicubicResize(%u, %u)",
-		static_cast<unsigned int>(to_width),
-		static_cast<unsigned int>(to_height));
-}
-
-static void scriptCapture(FILE *avs, const CaptureInfo &capture, Bitu largest_width, Bitu largest_height)
-{
-	// TODO Handle frame count == 0?
-	fprintf(
-		avs,
-		"AviSource(\"%s\").AssumeFPS(70).Trim(0, %u)",
+		script,
+		"%s %u %u %u\n",
 		capture.file_name.c_str(),
-		static_cast<unsigned int>(capture.frame_count - 1));
-
-	// Need to resize or add borders?
-	if ((capture.width != largest_width) ||
-		(capture.height != largest_height))
-	{
-		if (RESIZE)
-		{
-			scriptResize(avs, largest_width, largest_height);
-		}
-		else
-		{
-			scriptAddBorders(avs, capture.width, capture.height, largest_width, largest_height);
-		}
-	}
+		static_cast<unsigned int>(capture.width),
+		static_cast<unsigned int>(capture.height),
+		static_cast<unsigned int>(capture.frame_count));
 }
 
 void LONGPLAY_Init(Section *section)
@@ -224,56 +185,41 @@ void LongPlaySaveStateComponent::writeSave(std::ostream &stream) const
 
 void LongPlaySaveStateComponent::writeScript() const
 {
-	// Compute the largest width and height.
-	Bitu largest_width = current_capture.width;
-	Bitu largest_height = current_capture.height;
-	for (CaptureList::const_iterator it = previous_captures.begin(); it != previous_captures.end(); ++it)
-	{
-		if (it->width > largest_width)
-		{
-			largest_width = it->width;
-		}
-		if (it->height > largest_height)
-		{
-			largest_height = it->height;
-		}
-	}
+	// Get the current time.
+	time_t t = {};
+	time(&t);
+	const struct tm *const gmt = gmtime(&t);
+
+	// Compute the path.
+	char path[256] = {};
+	sprintf(path, "longplay_%04d-%02d-%02d_%02d-%02d-%02d.txt",
+		gmt->tm_year + 1900,
+		gmt->tm_mon + 1,
+		gmt->tm_mday,
+		gmt->tm_hour,
+		gmt->tm_min,
+		gmt->tm_sec);
 
 	// Open the script file.
-	FILE *avs = fopen("capture.avs", "w");
-	if (avs == NULL)
+	FILE *script = fopen(path, "w");
+	if (script == NULL)
 	{
 		return;
 	}
 
-	if (previous_captures.empty())
+	// Write out previous captures.
+	for (CaptureList::const_iterator it = previous_captures.begin(); it != previous_captures.end(); ++it)
 	{
-		if (CaptureState & CAPTURE_VIDEO)
-		{
-			scriptCapture(avs, current_capture, largest_width, largest_height);
-		}
+		scriptCapture(script, *it);
 	}
-	else
+
+	// Write out the current capture, if any.
+	if (CaptureState & CAPTURE_VIDEO)
 	{
-		scriptCapture(avs, previous_captures.front(), largest_width, largest_height);
-
-		for (CaptureList::size_type i = 1; i < previous_captures.size(); ++i)
-		{
-			fputs(" ++ ", avs);
-
-			const CaptureInfo &capture = previous_captures[i];
-			scriptCapture(avs, capture, largest_width, largest_height);
-		}
-
-		if (CaptureState & CAPTURE_VIDEO)
-		{
-			fputs(" ++ ", avs);
-
-			scriptCapture(avs, current_capture, largest_width, largest_height);
-		}
+		scriptCapture(script, current_capture);
 	}
 
 	// Close the script.
-	fclose(avs);
-	avs = NULL;
+	fclose(script);
+	script = NULL;
 }
