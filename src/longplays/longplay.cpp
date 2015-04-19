@@ -8,7 +8,7 @@
 
 void CAPTURE_VideoEvent(bool pressed);
 
-static const bool ADD_BORDERS = false;
+static const bool RESIZE = false;
 static const Bit32u CURRENT_VERSION = 1;
 
 struct CaptureInfo
@@ -95,13 +95,13 @@ static void scriptCapture(FILE *avs, const CaptureInfo &capture, Bitu largest_wi
 	if ((capture.width != largest_width) ||
 		(capture.height != largest_height))
 	{
-		if (ADD_BORDERS)
+		if (RESIZE)
 		{
-			scriptAddBorders(avs, capture.width, capture.height, largest_width, largest_height);
+			scriptResize(avs, largest_width, largest_height);
 		}
 		else
 		{
-			scriptResize(avs, largest_width, largest_height);
+			scriptAddBorders(avs, capture.width, capture.height, largest_width, largest_height);
 		}
 	}
 }
