@@ -40,7 +40,7 @@ def add_borders_to_capture(capture):
 	source = trimmed_source(capture)
 	capture_w = capture_width(capture)
 	capture_h = capture_height(capture)
-	if ((capture_w < largest_width) | (capture_h < largest_height)):
+	if ((capture_w < largest_width) or (capture_h < largest_height)):
 		borders = add_border(capture_w, capture_h, largest_width, largest_height)
 		return source + '.' + borders
 	else:
