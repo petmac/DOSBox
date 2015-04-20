@@ -2,9 +2,8 @@
 Thumbs.db
 
 # Visual Studio
-/visualc_net/Release/
-/visualc_net/Debug/
-/visualc_net/x64/
+/bin/
+/temp/
 *.opensdf
 *.sdf
 *.suo
