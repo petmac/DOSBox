@@ -136,14 +136,24 @@ void LongPlaySaveStateComponent::setBytes(std::istream& stream)
 	}
 
 	// Close current capture.
-	if (CaptureState & CAPTURE_VIDEO) {
-		CAPTURE_VideoEvent(true);
+	if (CaptureState & CAPTURE_VIDEO)
+	{
+		// Is there not yet an open capture file?
+		if (current_capture.file_name.empty())
+		{
+			// Capture has not actually started yet. Abort it before the file is created.
+			CaptureState &= ~CAPTURE_VIDEO;
+		}
+		else
+		{
+			// Capture has started, so shut it down cleanly.
+			CAPTURE_VideoEvent(true);
+		}
 		assert((CaptureState & CAPTURE_VIDEO) == 0);
 	}
 
 	// Clear current capture.
-	current_capture.file_name.clear();
-	current_capture.frame_count = 0;
+	current_capture = CaptureInfo();
 
 	// Was there a capture running when state was saved?
 	if (stream_capture_state & CAPTURE_VIDEO)
@@ -160,14 +170,14 @@ void LongPlaySaveStateComponent::writeSave(std::ostream &stream) const
 	writePOD(stream, CURRENT_VERSION);
 	writePOD(stream, static_cast<Bit32u>(CaptureState));
 
-	// Is there a capture running?
-	if (CaptureState & CAPTURE_VIDEO)
+	// Is no capture file open?
+	if (current_capture.file_name.empty())
 	{
-		writePOD(stream, static_cast<Bit32u>(previous_captures.size() + 1));
+		writePOD(stream, static_cast<Bit32u>(previous_captures.size()));
 	}
 	else
 	{
-		writePOD(stream, static_cast<Bit32u>(previous_captures.size()));
+		writePOD(stream, static_cast<Bit32u>(previous_captures.size() + 1));
 	}
 
 	// Write previous captures.
@@ -177,7 +187,7 @@ void LongPlaySaveStateComponent::writeSave(std::ostream &stream) const
 	}
 
 	// Is there a capture running?
-	if (CaptureState & CAPTURE_VIDEO)
+	if (!current_capture.file_name.empty())
 	{
 		writeCapture(stream, current_capture);
 	}
