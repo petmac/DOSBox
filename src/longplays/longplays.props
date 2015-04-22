@@ -10,8 +10,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <PostBuildEvent>
-      <Command>$(SolutionDir)..\src\longplays\copy_dlls.bat $(OutDir)</Command>
-      <Message>Copying DLLs</Message>
+      <Command>$(SolutionDir)..\src\longplays\build_release.bat $(OutDir)</Command>
+      <Message>Building release</Message>
     </PostBuildEvent>
     <ClCompile>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>

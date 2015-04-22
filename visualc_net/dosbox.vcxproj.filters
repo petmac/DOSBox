@@ -1469,13 +1469,13 @@
     <Image Include="..\src\dosbox.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\longplays\copy_dlls.bat">
-      <Filter>Source Files\longplays</Filter>
-    </None>
     <None Include="..\src\longplays\build_avs.py">
       <Filter>Source Files\longplays</Filter>
     </None>
     <None Include="..\src\longplays\build_avs.bat">
+      <Filter>Source Files\longplays</Filter>
+    </None>
+    <None Include="..\src\longplays\build_release.bat">
       <Filter>Source Files\longplays</Filter>
     </None>
   </ItemGroup>
