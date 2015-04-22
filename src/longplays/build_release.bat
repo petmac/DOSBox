@@ -23,3 +23,8 @@ copy %DOC_SRC_DIR%\README %DOC_DST_DIR%\README.txt
 copy %DOC_SRC_DIR%\THANKS %DOC_DST_DIR%\THANKS.txt
 
 copy %DLL_SRC_DIR%\LONGPLAYS.txt %DOC_DST_DIR%\
+
+echo Copying scripts to %DLL_DST_DIR%
+
+copy %DLL_SRC_DIR%\build_avs.bat %DLL_DST_DIR%
+copy %DLL_SRC_DIR%\build_avs.py %DLL_DST_DIR%
