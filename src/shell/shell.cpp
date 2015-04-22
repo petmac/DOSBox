@@ -579,12 +579,10 @@ void SHELL_Init() {
 	MSG_Add("SHELL_CMD_SUBST_FAILURE","SUBST failed. You either made an error in your commandline or the target drive is already used.\nIt's only possible to use SUBST on Local drives\n");
 
 	MSG_Add("SHELL_STARTUP_BEGIN",
-		"\033[35;1m DOSBox SVN-Daum \033[32m[ykhwong.x-y.net]\033[37m\n"
-		"\033[33m UPDATED: JAN 24, 2015\033[37m\n"
 		"\033[44;1m\xC9\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD"
 		"\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD"
 		"\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xBB\n"
-		"\xBA \033[32mWelcome to DOSBox %-8s\033[37m                                         \xBA\n"
+		"\xBA \033[32mWelcome to DOSBox %-48s\033[37m \xBA\n"
 		"\xBA                                                                    \xBA\n"
 //		"\xBA DOSBox runs real and protected mode games.                         \xBA\n"
 		"\xBA For a short introduction for new users type: \033[33mINTRO\033[37m                 \xBA\n"
