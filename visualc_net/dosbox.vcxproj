@@ -720,6 +720,9 @@
     <None Include="..\src\longplays\build_avs.py" />
     <None Include="..\src\longplays\build_release.bat" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\src\longplays\LONGPLAYS.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

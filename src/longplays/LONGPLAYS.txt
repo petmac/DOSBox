@@ -1,0 +1,21 @@
+DOSBox SVN-Daum-Longplays
+=========================
+This is a version of DOSBox modified to better support creation of "longplay" gameplay movies.
+
+How it works
+============
+DOSBox has the capability to write out AVI capture files. DOSBox SVN-Daum added the ability to save and load emulator state using Alt-F5 and Alt-F9 respectively. The Longplays version builds on this functionality.
+
+When the user saves state, DOSBox will save out a text file listing all the capture movies created so far, as well as their resolution and frame count.
+
+When the user loads a save state, the list of previous captures is restored, and a new capture is started. It is necessary to start a new capture, because the capture movie being written to when the game was saved will most likely have further frames of video -- the ones captured after the save state file was written.
+
+This capture video list can be converted to an AviSynth script using the provided build_avs.py Python script.
+
+The AviSynth script can then be played back in Media Player Classic, or processed using VirtualDub or similar.
+
+Authors
+=======
+The DOSBox team and its contributors, http://www.dosbox.com/
+Taewoong and contributors towards DOSBox SVN-Daum, http://ykhwong.x-y.net/
+Peter Mackay, https://twitter.com/PetMac

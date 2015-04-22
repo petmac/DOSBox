@@ -1479,4 +1479,9 @@
       <Filter>Source Files\longplays</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\src\longplays\LONGPLAYS.txt">
+      <Filter>Source Files\longplays</Filter>
+    </Text>
+  </ItemGroup>
 </Project>
