@@ -72,14 +72,6 @@ void LONGPLAY_Init(Section *section)
 	// Register with the save state.
 	SaveState &save_state = SaveState::instance();
 	save_state.registerComponent("Longplay", save_state_component);
-
-	// Not capturing?
-	if ((CaptureState & CAPTURE_VIDEO) == 0)
-	{
-		// Start capturing.
-		CAPTURE_VideoEvent(true);
-		assert(CaptureState & CAPTURE_VIDEO);
-	}
 }
 
 void LONGPLAY_SetCaptureFile(const char *file_name)
