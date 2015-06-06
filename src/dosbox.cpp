@@ -604,68 +604,55 @@ unsigned long long strtoull(const char *s,char **endptr,int base) {
 }
 # endif
 #endif
-
-void SetGameState(int value) {
-    currentSlot.set(value);
 }
 
-void SaveGameState(bool pressed) {
-    if (!pressed) return;
-
-    try
-    {
-        SaveState::instance().save(currentSlot);
-        //LOG_MSG("[%s]: State %d saved!", getTime().c_str(), currentSlot + 1);
-    }
-    catch (const SaveState::Error& err)
-    {
-        notifyError(err);
-    }
+void SaveGameState_Run(size_t slot) {
+	try
+	{
+		SaveState::instance().save(slot);
+		//LOG_MSG("[%s]: State %d saved!", getTime().c_str(), currentSlot + 1);
+	}
+	catch (const SaveState::Error& err)
+	{
+		notifyError(err);
+	}
 }
 
-void LoadGameState(bool pressed) {
-    if (!pressed) return;
-
-//    if (SaveState::instance().isEmpty(currentSlot))
-//    {
-//        LOG_MSG("[%s]: State %d is empty!", getTime().c_str(), currentSlot + 1);
-//        return;
-//    }
-    try
-    {
-        SaveState::instance().load(currentSlot);
-        //LOG_MSG("[%s]: State %d loaded!", getTime().c_str(), currentSlot + 1);
-    }
-    catch (const SaveState::Error& err)
-    {
-        notifyError(err);
-    }
+void LoadGameState_Run(size_t slot) {
+	//    if (SaveState::instance().isEmpty(currentSlot))
+	//    {
+	//        LOG_MSG("[%s]: State %d is empty!", getTime().c_str(), currentSlot + 1);
+	//        return;
+	//    }
+	try
+	{
+		SaveState::instance().load(slot);
+		//LOG_MSG("[%s]: State %d loaded!", getTime().c_str(), currentSlot + 1);
+	}
+	catch (const SaveState::Error& err)
+	{
+		notifyError(err);
+	}
 }
 
-void NextSaveSlot(bool pressed) {
-    if (!pressed) return;
+namespace
+{
+	template <size_t slot>
+	void SaveGameState(bool pressed) {
+		if (pressed)
+		{
+			SaveGameState_Run(slot);
+		}
+	}
 
-    currentSlot.next();
-
-    const bool emptySlot = SaveState::instance().isEmpty(currentSlot);
-    LOG_MSG("Active save slot: %d %s", currentSlot + 1,  emptySlot ? "[Empty]" : "");
+	template <size_t slot>
+	void LoadGameState(bool pressed) {
+		if (pressed)
+		{
+			LoadGameState_Run(slot);
+		}
+	}
 }
-
-
-void PreviousSaveSlot(bool pressed) {
-    if (!pressed) return;
-
-    currentSlot.previous();
-
-    const bool emptySlot = SaveState::instance().isEmpty(currentSlot);
-    LOG_MSG("Active save slot: %d %s", currentSlot + 1, emptySlot ? "[Empty]" : "");
-}
-}
-void SetGameState_Run(int value) { SetGameState(value); }
-void SaveGameState_Run(void) { SaveGameState(true); }
-void LoadGameState_Run(void) { LoadGameState(true); }
-void NextSaveSlot_Run(void) { NextSaveSlot(true); }
-void PreviousSaveSlot_Run(void) { PreviousSaveSlot(true); }
 
 /* utility function. rename as appropriate and move to utility collection */
 void parse_busclk_setting_str(ClockDomain *cd,const char *s) {
@@ -766,10 +753,28 @@ static void DOSBOX_RealInit(Section * sec) {
 //#pragma message("WARNING: adapt keys!!!!")
 
     //add support for loading/saving game states
-    MAPPER_AddHandler(SaveGameState, MK_f5, MMOD2,"savestate","Save State");
-    MAPPER_AddHandler(LoadGameState, MK_f9, MMOD2,"loadstate","Load State");
-    MAPPER_AddHandler(PreviousSaveSlot, MK_f6, MMOD2,"prevslot","Prev. Slot");
-    MAPPER_AddHandler(NextSaveSlot, MK_f7, MMOD2,"nextslot","Next Slot");
+	// Modified by PetMac for longplays.
+	MAPPER_AddHandler(LoadGameState<0>, MK_f1, 0, "loadslot1", "LoadState1");
+	MAPPER_AddHandler(LoadGameState<1>, MK_f2, 0, "loadslot2", "LoadState2");
+	MAPPER_AddHandler(LoadGameState<2>, MK_f3, 0, "loadslot3", "LoadState3");
+	MAPPER_AddHandler(LoadGameState<3>, MK_f4, 0, "loadslot4", "LoadState4");
+	MAPPER_AddHandler(LoadGameState<4>, MK_f5, 0, "loadslot5", "LoadState5");
+	MAPPER_AddHandler(LoadGameState<5>, MK_f6, 0, "loadslot6", "LoadState6");
+	MAPPER_AddHandler(LoadGameState<6>, MK_f7, 0, "loadslot7", "LoadState7");
+	MAPPER_AddHandler(LoadGameState<7>, MK_f8, 0, "loadslot8", "LoadState8");
+	MAPPER_AddHandler(LoadGameState<8>, MK_f9, 0, "loadslot9", "LoadState9");
+	MAPPER_AddHandler(LoadGameState<9>, MK_f10, 0, "loadslot10", "LoadState10");
+
+	MAPPER_AddHandler(SaveGameState<0>, MK_f1, MMOD2, "saveslot1", "SaveState1");
+	MAPPER_AddHandler(SaveGameState<1>, MK_f2, MMOD2, "saveslot2", "SaveState2");
+	MAPPER_AddHandler(SaveGameState<2>, MK_f3, MMOD2, "saveslot3", "SaveState3");
+	MAPPER_AddHandler(SaveGameState<3>, MK_f4, MMOD2, "saveslot4", "SaveState4");
+	MAPPER_AddHandler(SaveGameState<4>, MK_f5, MMOD2, "saveslot5", "SaveState5");
+	MAPPER_AddHandler(SaveGameState<5>, MK_f6, MMOD2, "saveslot6", "SaveState6");
+	MAPPER_AddHandler(SaveGameState<6>, MK_f7, MMOD2, "saveslot7", "SaveState7");
+	MAPPER_AddHandler(SaveGameState<7>, MK_f8, MMOD2, "saveslot8", "SaveState8");
+	MAPPER_AddHandler(SaveGameState<8>, MK_f9, MMOD2, "saveslot9", "SaveState9");
+	MAPPER_AddHandler(SaveGameState<9>, MK_f10, MMOD2, "saveslot10", "SaveState10");
 
 	std::string mtype(section->Get_string("machine"));
 	svgaCard = SVGA_None; 

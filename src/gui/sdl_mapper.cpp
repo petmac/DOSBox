@@ -102,6 +102,7 @@ static CBindList holdlist;
 class CEvent {
 public:
 	CEvent(char const * const _entry) {
+		assert(strlen(_entry) < 16);
 		safe_strncpy(entry,_entry,16);
 		events.push_back(this);
 		bindlist.clear();

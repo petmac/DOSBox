@@ -905,18 +905,15 @@ void ToggleMenu(bool pressed) {
 	}
 }
 
-extern void SaveGameState_Run(void);
-extern void SetGameState_Run(int value);
-extern void LoadGameState_Run(void);
+extern void SaveGameState_Run(size_t slot);
+extern void LoadGameState_Run(size_t slot);
 
-static void MENU_SaveState(int value) {
-	SetGameState_Run(value-1);
-	SaveGameState_Run();
+static void MENU_SaveState(size_t value) {
+	SaveGameState_Run(value - 1);
 }
 
-static void MENU_LoadState(int value) {
-	SetGameState_Run(value-1);
-	LoadGameState_Run();
+static void MENU_LoadState(size_t value) {
+	LoadGameState_Run(value - 1);
 }
 
 static void MENU_RemoveState(std::string value) {
